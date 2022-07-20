@@ -15,11 +15,17 @@ const routes = [
     children: [
       {
         path: 'home',
-        component: () => import('@/views/home')
+        component: () => import('@/views/home'),
+        meta: {
+          title: '首页'
+        }
       },
       {
         path: 'search',
-        component: () => import('@/views/search')
+        component: () => import('@/views/search'),
+        meta: {
+          title: '搜索'
+        }
       }
     ]
   }
