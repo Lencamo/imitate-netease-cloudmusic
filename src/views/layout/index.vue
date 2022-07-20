@@ -1,10 +1,13 @@
 <template>
   <div class="layout-container">
     <!-- 头部区域 -->
-    <van-nav-bar :title="activeTitle" />
+    <van-nav-bar :title="activeTitle" fixed />
 
     <!-- 内容区域 -->
-    <router-view></router-view>
+    <div class="main">
+      <!-- 二级路由-挂载点 -->
+      <router-view></router-view>
+    </div>
 
     <!-- 底部区域 -->
     <van-tabbar v-model="active" route>
@@ -39,4 +42,12 @@ export default {
   methods: {}
 }
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+/* 中间内容区域 - 容器样式(留好上下导航所占位置) */
+.layout-container {
+  .main {
+    padding-top: 46px;
+    padding-bottom: 50px;
+  }
+}
+</style>

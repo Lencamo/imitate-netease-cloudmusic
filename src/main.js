@@ -9,10 +9,14 @@ import '@/styles/normalize.css'
 import '@/mobile/flexible'
 
 // 全局注册vant组件（按需引入）
-import { NavBar, Tabbar, TabbarItem } from 'vant'
+import { NavBar, Tabbar, TabbarItem, Col, Row, Image as VanImage } from 'vant'
+
+Vue.use(NavBar)
 Vue.use(Tabbar)
 Vue.use(TabbarItem)
-Vue.use(NavBar)
+Vue.use(Col)
+Vue.use(Row)
+Vue.use(VanImage)
 
 Vue.config.productionTip = false
 
