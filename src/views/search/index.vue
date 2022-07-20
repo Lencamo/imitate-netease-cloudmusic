@@ -1,5 +1,5 @@
 <template>
-  <div class="search-container"></div>
+  <div class="search-container">搜索</div>
 </template>
 <script>
 export default {

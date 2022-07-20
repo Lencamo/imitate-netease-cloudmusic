@@ -10,7 +10,18 @@ const routes = [
   },
   {
     path: '/layout',
-    component: () => import('@/views/layout')
+    component: () => import('@/views/layout'),
+    redirect: '/layout/home',
+    children: [
+      {
+        path: 'home',
+        component: () => import('@/views/home')
+      },
+      {
+        path: 'search',
+        component: () => import('@/views/search')
+      }
+    ]
   }
 ]
 

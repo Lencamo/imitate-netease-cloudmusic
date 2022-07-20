@@ -8,6 +8,12 @@ import '@/styles/normalize.css'
 // 引入js适配库
 import '@/mobile/flexible'
 
+// 全局注册vant组件（按需引入）
+import { NavBar, Tabbar, TabbarItem } from 'vant'
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+Vue.use(NavBar)
+
 Vue.config.productionTip = false
 
 new Vue({
