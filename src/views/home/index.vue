@@ -12,26 +12,13 @@
     <!-- 最新音乐区域 -->
     <p class="title">最新音乐</p>
     <van-cell-group>
-      <van-cell center title="无名浪潮" label="描述信息">
-        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-        <template #right-icon>
-          <van-icon name="play-circle-o" size="24px" />
-        </template>
-      </van-cell>
-      <van-cell center title="无名浪潮" label="描述信息">
-        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-        <template #right-icon>
-          <van-icon name="play-circle-o" size="24px" />
-        </template>
-      </van-cell>
-      <van-cell center title="无名浪潮" label="描述信息">
-        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-        <template #right-icon>
-          <van-icon name="play-circle-o" size="24px" />
-        </template>
-      </van-cell>
-      <van-cell center title="无名浪潮" label="描述信息">
-        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+      <van-cell
+        center
+        v-for="obj in newestMusic"
+        :key="obj.id"
+        :title="obj.name"
+        :label="obj.song.artists[0].name"
+      >
         <template #right-icon>
           <van-icon name="play-circle-o" size="24px" />
         </template>
@@ -40,25 +27,35 @@
   </div>
 </template>
 <script>
-import { recommendMusicAPI } from '@/api/index'
+import { recommendMusicAPI, newestMusicAPI } from '@/api/index'
 
 export default {
   name: 'comHome',
   data() {
     return {
-      recomList: []
+      recomList: [],
+      newestMusic: []
     }
   },
   created() {
     this.recommendMusicFn()
+    this.newestMusicFn()
   },
   methods: {
+    // 推荐歌单请求
     async recommendMusicFn() {
       const { data: res } = await recommendMusicAPI({ limit: 6 })
       // console.log(res)
       // console.log(res.result)
 
       this.recomList = res.result
+    },
+    // 最新音乐请求
+    async newestMusicFn() {
+      const { data: res } = await newestMusicAPI({ limit: 10 })
+      console.log(res.result)
+
+      this.newestMusic = res.result
     }
   }
 }

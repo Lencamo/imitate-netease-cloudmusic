@@ -13,3 +13,14 @@ export const recommendMusic = (params) =>
     // 这里是params: {params}的简写，其中params是一个对象
     // 将来外面可能传入params的值 {limit: 20}
   })
+
+/**
+ * 首页 - 推荐最新音乐接口
+ * @param {*} params
+ * @returns Promise对象
+ */
+export const newestMusic = (params) =>
+  request({
+    url: '/personalized/newsong',
+    params
+  })
