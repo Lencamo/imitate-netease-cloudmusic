@@ -6,7 +6,12 @@ module.exports = {
       {
         libraryName: 'vant',
         libraryDirectory: 'es',
-        style: true
+        // 默认情况
+        // style: true
+        // 使用vant样式变量时
+
+        // 指定样式路径
+        style: (name) => `${name}/style/less`
       },
       'vant'
     ]

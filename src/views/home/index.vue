@@ -15,25 +15,25 @@
       <van-cell center title="无名浪潮" label="描述信息">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+          <van-icon name="play-circle-o" size="24px" />
         </template>
       </van-cell>
       <van-cell center title="无名浪潮" label="描述信息">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+          <van-icon name="play-circle-o" size="24px" />
         </template>
       </van-cell>
       <van-cell center title="无名浪潮" label="描述信息">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+          <van-icon name="play-circle-o" size="24px" />
         </template>
       </van-cell>
       <van-cell center title="无名浪潮" label="描述信息">
         <!-- 使用 right-icon 插槽来自定义右侧图标 -->
         <template #right-icon>
-          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+          <van-icon name="play-circle-o" size="24px" />
         </template>
       </van-cell>
     </van-cell-group>
@@ -84,12 +84,6 @@ export default {
   -webkit-line-clamp: 2; /** 显示的行数 **/
   overflow: hidden; /** 隐藏超出的内容 **/
   margin-top: 0;
-}
-
-/* 最新音乐单元格 - 图标 */
-.play-circle-o-icon {
-  font-size: 24px;
-  line-height: inherit;
 }
 
 /* 最新音乐单元格 - 底部边框调整 */
