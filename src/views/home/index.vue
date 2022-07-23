@@ -5,12 +5,38 @@
     <van-row gutter="10">
       <van-col span="8" v-for="obj in recomList" :key="obj.id">
         <van-image width="100%" height="3.2rem" fit="cover" :src="obj.picUrl" />
-        <p class="song_name">{{ obj.name }}</p>
+        <p class="songList_msg">{{ obj.name }}</p>
       </van-col>
     </van-row>
 
-    <!-- 最新英语区域 -->
+    <!-- 最新音乐区域 -->
     <p class="title">最新音乐</p>
+    <van-cell-group>
+      <van-cell center title="无名浪潮" label="描述信息">
+        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+        <template #right-icon>
+          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+        </template>
+      </van-cell>
+      <van-cell center title="无名浪潮" label="描述信息">
+        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+        <template #right-icon>
+          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+        </template>
+      </van-cell>
+      <van-cell center title="无名浪潮" label="描述信息">
+        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+        <template #right-icon>
+          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+        </template>
+      </van-cell>
+      <van-cell center title="无名浪潮" label="描述信息">
+        <!-- 使用 right-icon 插槽来自定义右侧图标 -->
+        <template #right-icon>
+          <van-icon name="play-circle-o" class="play-circle-o-icon" />
+        </template>
+      </van-cell>
+    </van-cell-group>
   </div>
 </template>
 <script>
@@ -30,7 +56,7 @@ export default {
     async recommendMusicFn() {
       const { data: res } = await recommendMusicAPI({ limit: 6 })
       // console.log(res)
-      console.log(res.result)
+      // console.log(res.result)
 
       this.recomList = res.result
     }
@@ -46,8 +72,8 @@ export default {
   color: #333;
   font-size: 15px;
 }
-/* 推荐歌单 - 歌名 */
-.song_name {
+/* 推荐歌单 - 简介信息 */
+.songList_msg {
   font-size: 0.346667rem;
   padding: 0 0.08rem;
   margin-bottom: 0.266667rem;
@@ -58,5 +84,16 @@ export default {
   -webkit-line-clamp: 2; /** 显示的行数 **/
   overflow: hidden; /** 隐藏超出的内容 **/
   margin-top: 0;
+}
+
+/* 最新音乐单元格 - 图标 */
+.play-circle-o-icon {
+  font-size: 24px;
+  line-height: inherit;
+}
+
+/* 最新音乐单元格 - 底部边框调整 */
+.van-cell::after {
+  border-bottom: 2px solid lightgray;
 }
 </style>
