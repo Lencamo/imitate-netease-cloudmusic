@@ -14,15 +14,19 @@
       <div class="hot_name_wrap">
         <!-- 搜索关键词 -->
         <!-- 没有id使用索引✨做为id -->
-        <span class="hot_item" v-for="(obj, index) in hotArr" :key="index">{{
-          obj.first
-        }}</span>
+        <span
+          class="hot_item"
+          v-for="(obj, index) in hotArr"
+          :key="index"
+          @click="hotArrBtn(obj.first)"
+          >{{ obj.first }}</span
+        >
       </div>
     </div>
   </div>
 </template>
 <script>
-import { hotSearchAPI } from '@/api/index'
+import { hotSearchAPI, searchResultListAPI } from '@/api/index'
 
 export default {
   name: 'comSearch',
@@ -39,9 +43,29 @@ export default {
     // 热搜关键字请求
     async hotSearchFn() {
       const { data: res } = await hotSearchAPI()
-      console.log(res.result.hots)
+      // console.log(res.result.hots)
 
       this.hotArr = res.result.hots
+    },
+    // 热搜关键字点击事件
+    hotArrBtn(hotValue) {
+      this.searchValue = hotValue
+    },
+
+    // 搜索结果
+    async searchResultListFn() {
+      const { data: res } = await searchResultListAPI({
+        type: 1,
+        keywords: this.searchValue
+      })
+      console.log(res)
+    }
+  },
+  watch: {
+    // 监听输入框中的内容
+    searchValue: function () {
+      // console.log(this.searchValue)
+      this.searchResultListFn()
     }
   }
 }
