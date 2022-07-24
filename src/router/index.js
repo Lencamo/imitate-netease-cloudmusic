@@ -28,6 +28,10 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    path: '/play',
+    component: () => import('@/views/play/index.vue')
   }
 ]
 

@@ -6,7 +6,9 @@
     <!-- 内容区域 -->
     <div class="main">
       <!-- 二级路由-挂载点 -->
-      <router-view></router-view>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
 
     <!-- 底部区域 -->

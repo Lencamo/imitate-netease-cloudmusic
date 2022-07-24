@@ -33,6 +33,7 @@
         :key="obj.id"
         :name="obj.name"
         :author="obj.ar[0].name"
+        :id="obj.id"
       ></song-item>
     </div>
   </div>

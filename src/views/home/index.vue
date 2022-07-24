@@ -16,6 +16,7 @@
       :key="obj.id"
       :name="obj.name"
       :author="obj.song.artists[0].name"
+      :id="obj.id"
     ></song-item>
   </div>
 </template>
