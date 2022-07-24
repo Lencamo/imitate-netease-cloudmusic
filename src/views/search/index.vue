@@ -74,11 +74,15 @@ export default {
 
     // 搜索结果
     async searchResultListFn() {
+      // bug🚩分析：解决删除搜索框内容后，最后一次请求失败导致 esultList.length不为0，无法切换页面的bug
+      // 解决方法：if 搜索框没有内容，直接跳转页面，else 请求数据
+      if (this.searchValue.length === 0) return (this.resultList = [])
+
       const { data: res } = await searchResultListAPI({
         type: 1,
         keywords: this.searchValue
       })
-      console.log(res.result.songs)
+      // console.log(res.result.songs)
 
       this.resultList = res.result.songs
     }
