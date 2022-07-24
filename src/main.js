@@ -18,7 +18,8 @@ import {
   Image as VanImage,
   Cell,
   CellGroup,
-  Icon
+  Icon,
+  Search
 } from 'vant'
 
 Vue.use(NavBar)
@@ -30,6 +31,7 @@ Vue.use(VanImage)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Icon)
+Vue.use(Search)
 
 Vue.config.productionTip = false
 
