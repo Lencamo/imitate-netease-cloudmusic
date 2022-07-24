@@ -11,26 +11,23 @@
 
     <!-- 最新音乐区域 -->
     <p class="title">最新音乐</p>
-    <van-cell-group>
-      <van-cell
-        center
-        v-for="obj in newestMusic"
-        :key="obj.id"
-        :title="obj.name"
-        :label="obj.song.artists[0].name"
-      >
-        <template #right-icon>
-          <van-icon name="play-circle-o" size="24px" />
-        </template>
-      </van-cell>
-    </van-cell-group>
+    <song-item
+      v-for="obj in newestMusic"
+      :key="obj.id"
+      :name="obj.name"
+      :author="obj.song.artists[0].name"
+    ></song-item>
   </div>
 </template>
 <script>
 import { recommendMusicAPI, newestMusicAPI } from '@/api/index'
+import songItem from '@/components/songItem'
 
 export default {
   name: 'comHome',
+  components: {
+    songItem
+  },
   data() {
     return {
       recomList: [],
@@ -81,10 +78,5 @@ export default {
   -webkit-line-clamp: 2; /** 显示的行数 **/
   overflow: hidden; /** 隐藏超出的内容 **/
   margin-top: 0;
-}
-
-/* 最新音乐单元格 - 底部边框调整 */
-.van-cell::after {
-  border-bottom: 2px solid lightgray;
 }
 </style>

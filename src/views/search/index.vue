@@ -28,27 +28,24 @@
     <div class="search_wrap" v-else>
       <!-- 标题 -->
       <p class="hot_title">最佳匹配</p>
-      <van-cell-group>
-        <van-cell
-          center
-          v-for="obj in resultList"
-          :key="obj.id"
-          :title="obj.name"
-          :label="obj.ar[0].name"
-        >
-          <template #right-icon>
-            <van-icon name="play-circle-o" size="24px" />
-          </template>
-        </van-cell>
-      </van-cell-group>
+      <song-item
+        v-for="obj in resultList"
+        :key="obj.id"
+        :name="obj.name"
+        :author="obj.ar[0].name"
+      ></song-item>
     </div>
   </div>
 </template>
 <script>
 import { hotSearchAPI, searchResultListAPI } from '@/api/index'
+import songItem from '@/components/songItem'
 
 export default {
   name: 'comSearch',
+  components: {
+    songItem
+  },
   data() {
     return {
       searchValue: '', // 搜索框输入内容
