@@ -8,7 +8,7 @@
     />
 
     <!-- 热门搜索区域 -->
-    <div class="search_wrap">
+    <div class="search_wrap" v-if="resultList.length === 0">
       <!-- 标题 -->
       <p class="hot_title">热门搜索</p>
       <div class="hot_name_wrap">
@@ -23,6 +23,25 @@
         >
       </div>
     </div>
+
+    <!-- 搜索结果区域 -->
+    <div class="search_wrap" v-else>
+      <!-- 标题 -->
+      <p class="hot_title">最佳匹配</p>
+      <van-cell-group>
+        <van-cell
+          center
+          v-for="obj in resultList"
+          :key="obj.id"
+          :title="obj.name"
+          :label="obj.ar[0].name"
+        >
+          <template #right-icon>
+            <van-icon name="play-circle-o" size="24px" />
+          </template>
+        </van-cell>
+      </van-cell-group>
+    </div>
   </div>
 </template>
 <script>
@@ -33,7 +52,8 @@ export default {
   data() {
     return {
       searchValue: '', // 搜索框输入内容
-      hotArr: [] // 热搜关键字
+      hotArr: [], // 热搜关键字
+      resultList: [] // 搜索结果
     }
   },
   created() {
@@ -58,7 +78,9 @@ export default {
         type: 1,
         keywords: this.searchValue
       })
-      console.log(res)
+      console.log(res.result.songs)
+
+      this.resultList = res.result.songs
     }
   },
   watch: {
