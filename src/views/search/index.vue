@@ -69,8 +69,20 @@ export default {
       this.hotArr = res.result.hots
     },
     // 热搜关键字点击事件
-    hotArrBtn(hotValue) {
+    async hotArrBtn(hotValue) {
       this.searchValue = hotValue
+
+      // 升级✨优化：若直接点击热搜关键字，直接请求（不使用防抖）
+      const { data: res } = await searchResultListAPI({
+        type: 1,
+        keywords: this.searchValue
+      })
+      this.resultList = res.result.songs
+
+      // 注意事项：为了防止同时发生两次请求，在点击发起请求结束👀后：使用定时器重置输入框发起的请求（由于内容不变，相当于停止了请求）
+      setTimeout(() => {
+        clearTimeout(this.timer)
+      })
     },
 
     // 搜索结果
