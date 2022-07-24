@@ -53,7 +53,7 @@ export default {
     // 最新音乐请求
     async newestMusicFn() {
       const { data: res } = await newestMusicAPI({ limit: 10 })
-      console.log(res.result)
+      // console.log(res.result)
 
       this.newestMusic = res.result
     }

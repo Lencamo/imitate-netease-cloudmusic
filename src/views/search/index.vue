@@ -1,7 +1,11 @@
 <template>
   <div class="search-container">
     <!-- 搜索框区域 -->
-    <van-search shape="round" v-model="value" placeholder="请输入搜索关键词" />
+    <van-search
+      shape="round"
+      v-model="searchValue"
+      placeholder="请输入搜索关键词"
+    />
 
     <!-- 热门搜索区域 -->
     <div class="search_wrap">
@@ -9,21 +13,35 @@
       <p class="hot_title">热门搜索</p>
       <div class="hot_name_wrap">
         <!-- 搜索关键词 -->
-        <span class="hot_item">青花瓷</span>
-        <span class="hot_item">海底</span>
-        <span class="hot_item">告别气球</span>
-        <span class="hot_item">大城小爱</span>
-        <span class="hot_item">烟雨成云</span>
+        <!-- 没有id使用索引✨做为id -->
+        <span class="hot_item" v-for="(obj, index) in hotArr" :key="index">{{
+          obj.first
+        }}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { hotSearchAPI } from '@/api/index'
+
 export default {
   name: 'comSearch',
   data() {
     return {
-      value: '' // 搜索框输入内容
+      searchValue: '', // 搜索框输入内容
+      hotArr: [] // 热搜关键字
+    }
+  },
+  created() {
+    this.hotSearchFn()
+  },
+  methods: {
+    // 热搜关键字请求
+    async hotSearchFn() {
+      const { data: res } = await hotSearchAPI()
+      console.log(res.result.hots)
+
+      this.hotArr = res.result.hots
     }
   }
 }
