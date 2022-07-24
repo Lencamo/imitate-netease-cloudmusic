@@ -53,7 +53,8 @@ export default {
     return {
       searchValue: '', // 搜索框输入内容
       hotArr: [], // 热搜关键字
-      resultList: [] // 搜索结果
+      resultList: [], // 搜索结果
+      timer: null // 定时器（用于搜索框的防抖）
     }
   },
   created() {
@@ -73,18 +74,22 @@ export default {
     },
 
     // 搜索结果
-    async searchResultListFn() {
-      // bug🚩分析：解决删除搜索框内容后，最后一次请求失败导致 esultList.length不为0，无法切换页面的bug
-      // 解决方法：if 搜索框没有内容，直接跳转页面，else 请求数据
-      if (this.searchValue.length === 0) return (this.resultList = [])
+    searchResultListFn() {
+      // 防抖🚩技术（为请求发起过程设定一定的完成时间）
+      clearTimeout(this.timer)
+      this.timer = setTimeout(async () => {
+        // bug✨分析：解决删除搜索框内容后，最后一次请求失败导致 esultList.length不为0，无法切换页面的bug
+        // 解决方法：if 搜索框没有内容，直接跳转页面，else 请求数据
+        if (this.searchValue.length === 0) return (this.resultList = [])
 
-      const { data: res } = await searchResultListAPI({
-        type: 1,
-        keywords: this.searchValue
-      })
-      // console.log(res.result.songs)
+        const { data: res } = await searchResultListAPI({
+          type: 1,
+          keywords: this.searchValue
+        })
+        // console.log(res.result.songs)
 
-      this.resultList = res.result.songs
+        this.resultList = res.result.songs
+      }, 500)
     }
   },
   watch: {
