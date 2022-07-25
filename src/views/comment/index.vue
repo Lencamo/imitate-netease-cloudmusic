@@ -15,29 +15,36 @@
         success-text="刷新成功"
         @refresh="onRefresh"
       >
-        <div
-          class="comment_wrap"
-          v-for="(obj, index) in commentList"
-          :key="index"
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
         >
-          <!-- 左侧头像部分 -->
-          <div class="img_wrap">
-            <img :src="obj.user.avatarUrl" alt="" />
-          </div>
-          <!-- 右侧内容部分 -->
-          <div class="content_wrap">
-            <!-- 评论头 -->
-            <div class="header_wrap">
-              <div class="info_wrap">
-                <p>{{ obj.user.nickname }}</p>
-                <p>{{ obj.time }}</p>
-              </div>
-              <div>{{ obj.likedCount }}点赞</div>
+          <div
+            class="comment_wrap"
+            v-for="(obj, index) in commentList"
+            :key="index"
+          >
+            <!-- 左侧头像部分 -->
+            <div class="img_wrap">
+              <img :src="obj.user.avatarUrl" alt="" />
             </div>
-            <!-- 评论内容 -->
-            <div class="footer_wrap">{{ obj.content }}</div>
+            <!-- 右侧内容部分 -->
+            <div class="content_wrap">
+              <!-- 评论头 -->
+              <div class="header_wrap">
+                <div class="info_wrap">
+                  <p>{{ obj.user.nickname }}</p>
+                  <p>{{ obj.time }}</p>
+                </div>
+                <div>{{ obj.likedCount }}点赞</div>
+              </div>
+              <!-- 评论内容 -->
+              <div class="footer_wrap">{{ obj.content }}</div>
+            </div>
           </div>
-        </div>
+        </van-list>
       </van-pull-refresh>
     </div>
   </div>
@@ -50,28 +57,50 @@ export default {
   data() {
     return {
       commentList: [],
-      isLoading: false // 下拉加载状态
+      isLoading: false, // 下拉刷新状态
+      loading: false, // 上拉加载状态
+      finished: false, // 上拉加载状态
+
+      page: 1
     }
   },
-  created() {
-    this.getCommentListFn()
-  },
+  // created() {
+  //   this.getCommentListFn()
+  // },
   methods: {
     async getCommentListFn() {
       const { data: res } = await getCommentListAPI({
-        id: this.$route.query.id
+        id: this.$route.query.id,
+        limit: 15,
+        offset: (this.page - 1) * 15
       })
       // console.log(res)
-      this.commentList = res.comments
+      res.commentList = res.comments.forEach((obj) =>
+        this.commentList.push(obj)
+      )
     },
-    // 下拉加载触发的函数
+    // 下拉刷新触发的函数
     onRefresh() {
       setTimeout(() => {
         // 重新加载数据
         this.commentList = []
+        this.page = 1 // 会到初始状态
         this.getCommentListFn()
+
+        // 获取数据成功后的操作
         this.isLoading = false
       }, 1000)
+    },
+    // 上拉加载触发的函数（滚动条与底部距离小于 offset 时触发🚩：所以可以不用在create()函数中加载）
+    onLoad() {
+      setTimeout(() => {
+        // 重新加载数据（这里就不清空🍗原先是数据了，改为追加数据）
+        this.getCommentListFn()
+        this.page++ // 为下一次请求指定请求数据的内容
+
+        // 获取数据成功后的操作
+        this.loading = false
+      }, 1500)
     }
   }
 }
