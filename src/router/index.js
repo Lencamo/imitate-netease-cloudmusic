@@ -31,7 +31,11 @@ const routes = [
   },
   {
     path: '/play',
-    component: () => import('@/views/play/index.vue')
+    component: () => import('@/views/play')
+  },
+  {
+    path: '/comment',
+    component: () => import('@/views/comment')
   }
 ]
 
