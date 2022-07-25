@@ -1,41 +1,78 @@
 <template>
   <div class="comment-container">
     <!-- Title区域 -->
-    <van-nav-bar title="评论" left-arrow fixed />
+    <van-nav-bar
+      title="评论"
+      left-arrow
+      @click-left="$router.push('/layout/home')"
+      fixed
+    />
 
     <!-- Comment区域 -->
-    <div class="comment_wrap">
-      <!-- 左侧头像部分 -->
-      <div class="img_wrap">
-        <img src="https://img01.yzcdn.cn/vant/cat.jpeg" alt="" />
-      </div>
-      <!-- 右侧内容部分 -->
-      <div class="content_wrap">
-        <!-- 评论头 -->
-        <div class="header_wrap">
-          <div class="info_wrap">
-            <p>昵称</p>
-            <p>2022-7-25</p>
-          </div>
-          <div>12点赞</div>
+    <div class="main">
+      <div
+        class="comment_wrap"
+        v-for="(obj, index) in commentList"
+        :key="index"
+      >
+        <!-- 左侧头像部分 -->
+        <div class="img_wrap">
+          <img :src="obj.user.avatarUrl" alt="" />
         </div>
-        <!-- 评论内容 -->
-        <div class="footer_wrap"></div>
+        <!-- 右侧内容部分 -->
+        <div class="content_wrap">
+          <!-- 评论头 -->
+          <div class="header_wrap">
+            <div class="info_wrap">
+              <p>{{ obj.user.nickname }}</p>
+              <p>{{ obj.time }}</p>
+            </div>
+            <div>{{ obj.likedCount }}点赞</div>
+          </div>
+          <!-- 评论内容 -->
+          <div class="footer_wrap">{{ obj.content }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { getCommentListAPI } from '@/api'
+
 export default {
-  name: 'comComment'
+  name: 'comComment',
+  data() {
+    return {
+      commentList: []
+    }
+  },
+  created() {
+    this.getCommentListFn()
+  },
+  methods: {
+    async getCommentListFn() {
+      const { data: res } = await getCommentListAPI({
+        id: this.$route.query.id
+      })
+      // console.log(res)
+      this.commentList = res.comments
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
-.comment_wrap {
+.main {
   padding-top: 46px;
-  margin: 0 15px;
-  display: flex;
 }
+
+.comment_wrap {
+  margin: 0px 15px;
+  display: flex;
+  border-bottom: 0.2px solid lightgray;
+  padding-bottom: 10px;
+}
+
+// .comment_wrap:fis
 
 .img_wrap {
   width: 0.8rem;

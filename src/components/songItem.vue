@@ -1,7 +1,13 @@
 <template>
   <div class="songItem-container">
     <van-cell-group>
-      <van-cell center :title="name" :label="author">
+      <!-- 评论页面需要 -->
+      <van-cell
+        center
+        :title="name"
+        :label="author"
+        @click="$router.push({ path: '/comment', query: { id: id } })"
+      >
         <template #right-icon>
           <van-icon name="play-circle-o" size="24px" @touchstart="playFn" />
         </template>
