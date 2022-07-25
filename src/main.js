@@ -19,7 +19,8 @@ import {
   Cell,
   CellGroup,
   Icon,
-  Search
+  Search,
+  PullRefresh
 } from 'vant'
 
 Vue.use(NavBar)
@@ -32,6 +33,7 @@ Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Icon)
 Vue.use(Search)
+Vue.use(PullRefresh)
 
 Vue.config.productionTip = false
 

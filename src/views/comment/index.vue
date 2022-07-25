@@ -10,29 +10,35 @@
 
     <!-- Comment区域 -->
     <div class="main">
-      <div
-        class="comment_wrap"
-        v-for="(obj, index) in commentList"
-        :key="index"
+      <van-pull-refresh
+        v-model="isLoading"
+        success-text="刷新成功"
+        @refresh="onRefresh"
       >
-        <!-- 左侧头像部分 -->
-        <div class="img_wrap">
-          <img :src="obj.user.avatarUrl" alt="" />
-        </div>
-        <!-- 右侧内容部分 -->
-        <div class="content_wrap">
-          <!-- 评论头 -->
-          <div class="header_wrap">
-            <div class="info_wrap">
-              <p>{{ obj.user.nickname }}</p>
-              <p>{{ obj.time }}</p>
-            </div>
-            <div>{{ obj.likedCount }}点赞</div>
+        <div
+          class="comment_wrap"
+          v-for="(obj, index) in commentList"
+          :key="index"
+        >
+          <!-- 左侧头像部分 -->
+          <div class="img_wrap">
+            <img :src="obj.user.avatarUrl" alt="" />
           </div>
-          <!-- 评论内容 -->
-          <div class="footer_wrap">{{ obj.content }}</div>
+          <!-- 右侧内容部分 -->
+          <div class="content_wrap">
+            <!-- 评论头 -->
+            <div class="header_wrap">
+              <div class="info_wrap">
+                <p>{{ obj.user.nickname }}</p>
+                <p>{{ obj.time }}</p>
+              </div>
+              <div>{{ obj.likedCount }}点赞</div>
+            </div>
+            <!-- 评论内容 -->
+            <div class="footer_wrap">{{ obj.content }}</div>
+          </div>
         </div>
-      </div>
+      </van-pull-refresh>
     </div>
   </div>
 </template>
@@ -43,7 +49,8 @@ export default {
   name: 'comComment',
   data() {
     return {
-      commentList: []
+      commentList: [],
+      isLoading: false // 下拉加载状态
     }
   },
   created() {
@@ -56,6 +63,15 @@ export default {
       })
       // console.log(res)
       this.commentList = res.comments
+    },
+    // 下拉加载触发的函数
+    onRefresh() {
+      setTimeout(() => {
+        // 重新加载数据
+        this.commentList = []
+        this.getCommentListFn()
+        this.isLoading = false
+      }, 1000)
     }
   }
 }
