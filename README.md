@@ -1,4 +1,4 @@
-# imitate-netease-cloudmusic
+&emsp;&emsp;项目API接口地址：https://github.com/Binaryify/NeteaseCloudMusicApi
 
 ## Project setup
 ```
