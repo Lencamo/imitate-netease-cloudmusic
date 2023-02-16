@@ -1,3 +1,5 @@
+&emsp;&emsp;在线演示地址：https://imitate-netease-cloudmusic.vercel.app/
+
 &emsp;&emsp;项目API接口地址：https://github.com/Binaryify/NeteaseCloudMusicApi
 
 ## Project setup
